@@ -1,0 +1,24 @@
+diff -Nr -U3 linux.orig/arch/mips/cavium-octeon/executive/cvmx-pcie.c linux/arch/mips/cavium-octeon/executive/cvmx-pcie.c
+--- linux.orig/arch/mips/cavium-octeon/executive/cvmx-pcie.c	2020-03-22 09:51:43.927798827 +0800
++++ linux/arch/mips/cavium-octeon/executive/cvmx-pcie.c	2020-03-20 21:11:48.246258118 +0800
+@@ -1581,7 +1581,7 @@
+ 		else if (OCTEON_IS_MODEL(OCTEON_CNF71XX))
+ 			qlm = 1;
+ 
+-			mode = cvmx_qlm_get_mode(qlm);
++		mode = cvmx_qlm_get_mode(qlm);
+ 
+ 		__cvmx_pcie_check_pcie_port(node, pcie_port, mode);
+ 	}
+diff -Nr -U3 linux.orig/drivers/net/ethernet/cavium/octeon/octeon3-ethernet.c linux/drivers/net/ethernet/cavium/octeon/octeon3-ethernet.c
+--- linux.orig/drivers/net/ethernet/cavium/octeon/octeon3-ethernet.c	2020-03-22 09:56:01.032722483 +0800
++++ linux/drivers/net/ethernet/cavium/octeon/octeon3-ethernet.c	2020-03-20 21:25:33.343817869 +0800
+@@ -2156,7 +2156,7 @@
+ 
+ 	buf_ptr.u64 = 0;
+ 
+-	if (cvmx_wqe_get_bufs(wqe) > 1)
++	if (cvmx_wqe_get_bufs((cvmx_wqe_t *)wqe) > 1)
+ 		buf_ptr.s.subdc3 = CVMX_PKO_SENDSUBDC_LINK;
+ 	else
+ 		buf_ptr.s.subdc3 = CVMX_PKO_SENDSUBDC_GATHER;

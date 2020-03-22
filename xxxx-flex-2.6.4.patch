@@ -1,0 +1,48 @@
+diff -Nr -U3 flex-2.6.4.orig/configure.ac flex-2.6.4/configure.ac
+--- flex-2.6.4.orig/configure.ac	2017-05-04 04:16:37.000000000 +0800
++++ flex-2.6.4/configure.ac	2020-03-21 22:30:17.472851262 +0800
+@@ -25,8 +25,10 @@
+ # autoconf requirements and initialization
+ 
+ AC_INIT([the fast lexical analyser generator],[2.6.4],[flex-help@lists.sourceforge.net],[flex])
++AC_PREREQ([2.60])
+ AC_CONFIG_SRCDIR([src/scan.l])
+ AC_CONFIG_AUX_DIR([build-aux])
++AC_USE_SYSTEM_EXTENSIONS
+ LT_INIT
+ AM_INIT_AUTOMAKE([1.11.3 -Wno-portability foreign check-news std-options dist-lzip parallel-tests subdir-objects])
+ AC_CONFIG_HEADER([src/config.h])
+diff -Nr -U3 flex-2.6.4.orig/Makefile.am flex-2.6.4/Makefile.am
+--- flex-2.6.4.orig/Makefile.am	2017-05-04 04:16:37.000000000 +0800
++++ flex-2.6.4/Makefile.am	2020-03-21 22:31:24.949866346 +0800
+@@ -43,7 +43,6 @@
+ 
+ SUBDIRS = \
+ 	src \
+-	doc \
+ 	examples \
+ 	po \
+ 	tests \
+diff -Nr -U3 flex-2.6.4.orig/src/scan.l flex-2.6.4/src/scan.l
+--- flex-2.6.4.orig/src/scan.l	2017-05-04 04:16:37.000000000 +0800
++++ flex-2.6.4/src/scan.l	2020-03-21 22:35:06.461192508 +0800
+@@ -1,5 +1,11 @@
+ /* scan.l - scanner for flex input -*-C-*- */
+ 
++%top{
++/* flexdef.h includes config.h, which may contain macros that alter the API */
++/* of libc functions. Must include first before any libc header. */
++#include "flexdef.h"
++}
++
+ %{
+ /*  Copyright (c) 1990 The Regents of the University of California. */
+ /*  All rights reserved. */
+@@ -32,7 +38,6 @@
+ /*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR */
+ /*  PURPOSE. */
+ 
+-#include "flexdef.h"
+ #include "parse.h"
+ extern bool tablesverify, tablesext;
+ extern int trlcontxt; /* Set in  parse.y for each rule. */
