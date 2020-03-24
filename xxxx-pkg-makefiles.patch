@@ -1,0 +1,54 @@
+diff -Nr -U3 pkg_makefiles.orig/bison_host.mk pkg_makefiles/bison_host.mk
+--- pkg_makefiles.orig/bison_host.mk	2020-03-24 18:01:21.985811995 +0800
++++ pkg_makefiles/bison_host.mk	2020-03-24 18:22:56.040275502 +0800
+@@ -23,4 +23,5 @@
+ 
+ ${DIR_HOST}:
+ 	tar -zxf ${STORAGE}/${DIR}.tar.gz
++	cd ${DIR} && patch -p0 < ${OCTEON_ROOT}/gnu-patches/xxxx-bison-2.6.5-io-eof.patch
+ 	mv ${DIR} ${DIR_HOST}
+diff -Nr -U3 pkg_makefiles.orig/flex_host.mk pkg_makefiles/flex_host.mk
+--- pkg_makefiles.orig/flex_host.mk	2020-03-24 18:01:21.989812593 +0800
++++ pkg_makefiles/flex_host.mk	2020-03-24 18:22:56.040275502 +0800
+@@ -23,4 +23,5 @@
+ 
+ ${DIR_HOST}:
+ 	tar -zxf ${STORAGE}/${DIR}.tar.gz
++	cd ${DIR} && patch -p1 < ${OCTEON_ROOT}/gnu-patches/xxxx-flex-2.6.4.patch
+ 	mv ${DIR} ${DIR_HOST}
+diff -Nr -U3 pkg_makefiles.orig/flex.mk pkg_makefiles/flex.mk
+--- pkg_makefiles.orig/flex.mk	2020-03-24 18:01:22.009815557 +0800
++++ pkg_makefiles/flex.mk	2020-03-24 18:22:56.044275887 +0800
+@@ -21,3 +21,4 @@
+ 
+ ${DIR}:
+ 	tar -zxf ${STORAGE}/${PKG}-${VERSION}.tar.gz
++	cd ${DIR} && patch -p1 < ${OCTEON_ROOT}/gnu-patches/xxxx-flex-2.6.4.patch
+diff -Nr -U3 pkg_makefiles.orig/m4_host.mk pkg_makefiles/m4_host.mk
+--- pkg_makefiles.orig/m4_host.mk	2020-03-24 18:01:22.001814398 +0800
++++ pkg_makefiles/m4_host.mk	2020-03-24 18:22:56.044275887 +0800
+@@ -3,7 +3,7 @@
+ include ../.config
+ BUILD:=${shell pwd}
+ PKG:=m4
+-VERSION:=1.4.16
++VERSION:=1.4.18
+ DIR:=${PKG}-${VERSION}
+ DIR_HOST:=${PKG}_host-${VERSION}
+ 
+@@ -23,6 +23,5 @@
+ 
+ ${DIR_HOST}:
+ 	tar -zxf ${STORAGE}/${DIR}.tar.gz
++	cd ${DIR} && patch -p0 < ${OCTEON_ROOT}/gnu-patches/xxxx-m4-1.4.18-io-eof.patch
+ 	mv ${DIR} ${DIR_HOST}
+-	cd ${DIR_HOST} && patch -p0 < ${STORAGE}/m4-gets-error.patch
+-
+diff -Nr -U3 pkg_makefiles.orig/strace.mk pkg_makefiles/strace.mk
+--- pkg_makefiles.orig/strace.mk	2020-03-24 18:01:22.009815557 +0800
++++ pkg_makefiles/strace.mk	2020-03-24 19:43:11.186836811 +0800
+@@ -23,4 +23,3 @@
+ 
+ ${DIR}:
+ 	tar -xzf ${STORAGE}/${PKG}-${VERSION}.tar.gz
+-	cd ${DIR} && patch -p1 < ${STORAGE}/${PKG}-${VERSION}-fix.patch
