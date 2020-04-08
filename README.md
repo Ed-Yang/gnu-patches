@@ -20,6 +20,7 @@ Assuming the patch files are extracted on /tmp.
 
 ```shell
 apt-get install alien dpkg-dev debhelper build-essential libtool automake
+apt-get install-y  libncurses5-dev libncursesw5-dev  git wget bc flex  byacc bison pkg-config 
 ```
 
 ## Install SDK
@@ -134,9 +135,12 @@ make kernel-deb
 Write Debian filesystem to compact flash  
 
 ```shell
-make DISK=/dev/sdc compact-flash
+cd /usr/local/Cavium_Networks/OCTEON-SDK/linux/debian
+PATH=$PATH:/sbin
+make DISK=/dev/sdx compact-flash
 ```
-
+substitute /dev/sdx to the correct device. e.g /dev/sda or /dev/sdb
+ 
 ## MISC
 
 If the make report aclocal-1.15 or automake-1.15 not found, you might try this:
