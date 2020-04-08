@@ -52,7 +52,8 @@ patch -s -p1 < /tmp/sdk-5.1.0-patch_release2/sdk-ejtag-5.1.0.patch
 ```shell
 cd /usr/local/Cavium_Networks/OCTEON-SDK
 patch -p1 < /tmp/GCC7.3.0_Toolchain_sdk510/5.1.0-sdk_build_with_7.3_toohchain_for_GA.diff
-tar xvf /tmp/GCC7.3.0_Toolchain_sdk510/octeon-tools-249.0.tar.bz2
+tar xvf /tmp/GCC7.3.0_Toolchain_sdk510/octeon-tools-249.0.tar.bz2 -C ./
+rm tools
 ln -s octeon-tools-249.0 tools
 ```
 
